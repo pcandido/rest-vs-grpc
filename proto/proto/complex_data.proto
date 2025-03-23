@@ -1,0 +1,55 @@
+syntax = "proto3";
+
+package proto;
+
+option go_package = "github.com/pcandido/rest-vs-grpc/proto/pb;pb";
+
+service ComplexDataService {
+  rpc GetData (ComplexDataRequest) returns (ComplexDataResponse);
+}
+
+message ComplexDataRequest {}
+
+message ComplexDataResponse {
+  string id = 1;
+  string name = 2;
+  string timestamp = 3;
+  map<string, string> attributes = 4;
+  Metadata metadata = 5;
+  repeated Item items = 6;
+  repeated Transaction transactions = 7;
+  map<string, bool> flags = 8;
+  bytes large_payload = 9;
+  repeated NestedComplex nested_complex = 10;
+}
+
+message Metadata {
+  int32 version = 1;
+  repeated string tags = 2;
+  string source = 3;
+  repeated int64 permissions = 4;
+}
+
+message Item {
+  string id = 1;
+  double amount = 2;
+  bool active = 3;
+}
+
+message Transaction {
+  string transaction_id = 1;
+  double value = 2;
+  string timestamp = 3;
+}
+
+message NestedComplex {
+  int32 index = 1;
+  float weight = 2;
+  Detail detail = 3;
+}
+
+message Detail {
+  string description = 1;
+  int32 level = 2;
+  bool valid = 3;
+}
